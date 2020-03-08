@@ -1,27 +1,23 @@
 // Express Server
 // FIX ME :(
-  const express = require('express');
-  const path = require('path');
-  const router = require('./router');
+const express = require('express');
+const server = express();
 
-  const server = express();
-  
-  server.use('/', express.static(path.join(__dirname + '/../client/dist')));
-  
-  server.get('/name', (req, res) => {
-    res.status(200).send('This is your get request, modify this file to use your router!')
-  })
-  
-  server.post('/name', (req, res) => {
-    res.status(200).send('This is your post request, modify this file to use your router!')
-  })
-  
-  server.put('/name', (req, res) => {
-    res.status(200).send('This is your put request, modify this file to use your router!')
-  })
-  
-  server.delete('/name', (req, res) => {
-    res.status(200).send('This is your delete request, modify this file to use your router!')
-  })
+const cors = require("cors");
+const colors = require("colors");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
 
-  server.listen(port, () => console.log('Connected to port: 3000'))
+const path = require('path');
+const router = require('./router');
+const port = 3000
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }))
+server.use(cors());
+server.use(morgan('combined'));
+server.use('/', express.static(path.join(__dirname + '/../client/dist')));
+server.use('/ibay', router)
+
+server.listen(port, () => console.log('Connected to port: 3000'.magenta))
+

@@ -1,8 +1,10 @@
 // Router here
 // these routes are correct. there is no need to modify anything!
+// cool, thanks
 const router = require('express').Router();
 const controller = require('./controller.js');
 
+// get all, post one // put at id, delete at id
 router
   .route('/products')
   .get(controller.get)

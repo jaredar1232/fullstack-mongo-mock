@@ -1,9 +1,14 @@
 import React from 'react';
 
 const Products = (props) => {
+
+  // handleViewerItem(value){
+
+  // }
+
   return (
     <div className='product-list-entry'>
-      <h5 style={{ color: "red" }}>{props.productInfo.item}</h5>
+      <h5 style={{ color: "red" }} onClick={() => props.handleViewerItem(props.productInfo)}>{props.productInfo.item} </h5>
       <div>Min Buyout: {props.productInfo.min_cost}</div>
       <div>Current Bid: {props.productInfo.curr_bid}</div>
       <div>Time Remaining: {props.productInfo.ends_in}</div>

@@ -1,8 +1,10 @@
-const Product = require('./');
+const Product = require('./').Product
 var mongoose = require('mongoose');
+const db = require('./index.js').db
+const colors = require('colors')
 
 // Fill in the definition of insertMockData so that when 
-// this file is run in the terminal with `node seed.js`, 
+// this file is run in the terminal with `node seed.js`, node db/seed.js*
 // all 10 products are inserted into the database
 
 const adjectives = ['Used', 'New', 'Refurbished', "PARTS ONLY"];
@@ -24,16 +26,20 @@ const createProduct = () => {
 
 const createProducts = () => {
   let productsArr = [];
-  for(let i = 0; i < 10; i++){
+  for (let i = 0; i < 10; i++) {
     productsArr.push(createProduct())
   }
   return productsArr
 }
 
-const insertMockData = function() {
+const insertMockData = function () {
   // Complete me please
-
+  let stuffToInsert = createProducts()
+  Product.insertMany(stuffToInsert)
+  console.log('DB seeded'.green)
 };
+
+insertMockData()
 
 // NOTE: DO NOT invoke this function as part of your
 // server code - it is meant to only be run once so that

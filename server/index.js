@@ -2,6 +2,7 @@
 // FIX ME :(
 const express = require('express');
 const server = express();
+const db = require('./index.js').db
 
 const cors = require("cors");
 const colors = require("colors");

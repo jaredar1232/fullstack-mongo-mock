@@ -8,40 +8,47 @@ const express = require("express")
 // console.log('consolelogging models', models)
 
 const controller = {
-  get: (req, res) => {
-    res.send(models.getProductsHelper())
-    // .then((data) => {
-    //   res.status(200).send('controller Get is working'.magenta, data)
-    // })
-    // .catch((err) => {
-    //   res.status(500).error("controllers Get is BROKEN", err)
-    // })
+  get: (req, res, next) => {
+    models.getProductsHelper()
+      .then((data) => {
+        res.status(200).send(data)
+      })
+      .catch((err) => {
+        res.status(500).send(err)
+      })
   },
-  post: (req, res) => {
+  post: (req, res, next) => {
     models.postProductsHelper(req.body)
       .then((data) => {
-        res.status(200).send('controller Post is working'.magenta, data)
+        res.status(200).send('Posted to Database')
       })
       .catch((err) => {
-        res.status(500).error("controllers Post is BROKEN", err)
+        res.status(500).send(err)
       })
   },
-  put: (req, res) => {
-    models.updateProductHelper(req.params)
+  put: (req, res, next) => {
+    models.updateProductHelper(req.params, req.body)
       .then((data) => {
-        res.status(200).send('controller Put is working'.magenta, data)
+        res.status(200).send('DB updated')
       })
       .catch((err) => {
-        res.status(500).error("controllers Put is BROKEN", err)
+        res.status(500).send(err)
       })
   },
-  delete: (req, res) => {
+  delete: (req, res, next) => {
     models.deleteProductHelper(req.params)
-      .then((data) => {
-        res.status(200).send('controller Delete is working'.magenta, data)
+      .then(() => {
+        res.status(200).send('Item deleted from DB')
       })
-    res.status(500).error("controllers Delete is BROKEN", err)
+      .catch(() => {
+        res.status(500).send(err)
+      })
   }
 }
 
 module.exports = controller
+
+
+// // ask about .catch(() => {
+// res.status(500).send(err)
+//       })

@@ -1,4 +1,4 @@
-var Product = require('./');
+var Product = require('./').Product;
 // complete the dbhelpers
 const mongoose = require("mongoose")
 const express = require("express")
@@ -6,16 +6,16 @@ mongoose.Promise = global.Promise;
 
 var helpers = {
   getProductsHelper: () => {
-    return 'hello from helpers Get'
+    return Product.find({})
   },
-  postProductsHelper: () => {
-    return 'hello from helpers Post'
+  postProductsHelper: ({ item, min_cost, curr_bid, ends_in, image }) => {
+    return Product.create({ item, min_cost, curr_bid, ends_in, image })
   },
-  updateProductHelper: () => {
-    return 'hello from helpers Put'
+  updateProductHelper: ({ _id }, { item, min_cost, curr_bid, ends_in, image }) => {
+    return Product.findByIdAndUpdate({ _id }, { item, min_cost, curr_bid, ends_in, image })
   },
-  deleteProductHelper: () => {
-    return 'hello from helpers Delete'
+  deleteProductHelper: ({ _id }) => {
+    return Product.findByIdAndRemove({ _id })
   }
 };
 
